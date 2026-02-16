@@ -15,7 +15,6 @@ export default function CodeDetailPage() {
       .then((res) => res.json())
       .then((res) => setData(res));
   }, [id]);
-  console.log(data);
 
   if (!data) return null;
 

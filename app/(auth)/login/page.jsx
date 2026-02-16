@@ -25,6 +25,7 @@ export default function Login() {
 
     if (data.token) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
       router.push("/");
     } else {
       setMessage(data.message);

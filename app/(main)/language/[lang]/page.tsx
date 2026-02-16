@@ -59,16 +59,16 @@ export default function LanguagePage() {
                 </li>
                 <li>/</li>
                 <li className="text-neutral-900 dark:text-neutral-200">
-                  {p.programming_language}
+                  {lang}
                 </li>
               </ol>
             </nav>
 
             <Link
-              href={`/language/${p.programming_language}`}
+              href={`/language/${lang}`}
               className="inline-block rounded-full bg-blue-600/10 text-blue-600 dark:bg-blue-400/10 dark:text-blue-400 px-4 py-1 text-sm font-medium"
             >
-              {p.programming_language}
+              {lang}
             </Link>
           </div>
         ))}

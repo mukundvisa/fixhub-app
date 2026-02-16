@@ -12,20 +12,19 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
-const navLinks = [
-  { name: "Dashboard", path: "/" },
-  { name: "Codes", path: "/codes" },
-  { name: "Add Fix", path: "/add-fix" },
-  { name: "My Fixes", path: "/my-fixes" },
-  { name: "Profile", path: "/profile" },
-];
-
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [menu, setMenu] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/get-link")
+      .then((res) => res.json())
+      .then((data) => setMenu(data[0]));
+  }, []);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -70,7 +69,7 @@ export default function Header() {
           </button>
 
           <ul className="hidden md:flex items-center gap-3 bg-black dark:bg-white px-5 py-2 rounded-full shadow">
-            {navLinks.map((item) => {
+            {menu.map((item) => {
               const isActive = pathname === item.path;
 
               return (

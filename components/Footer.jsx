@@ -1,8 +1,18 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [menu, setMenu] = useState([]);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    fetch("/api/get-link")
+      .then((res) => res.json())
+      .then((data) => setMenu(data[1]));
+  }, []);
 
   return (
     <footer className="container mx-auto bg-black dark:bg-white rounded-full shadow m-4">
@@ -11,27 +21,24 @@ const Footer = () => {
           © {currentYear} Akshar FixHub. All Rights Reserved.
         </span>
         <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-body sm:mt-0">
-          <li>
-            <Link
-              href="#"
-              className="me-4 md:me-6 font-bold text-white dark:text-black"
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#"
-              className="me-4 md:me-6 font-bold text-white dark:text-black"
-            >
-              Privacy Policy
-            </Link>
-          </li>
-          <li>
-            <Link href="#" className="font-bold text-white dark:text-black">
-              Contact
-            </Link>
-          </li>
+          {menu.map((item) => {
+            const isActive = pathname === item.path;
+
+            return (
+              <li key={item.name}>
+                <Link
+                  href={item.path}
+                  className={`px-3 py-1 font-medium rounded-full ${
+                    isActive
+                      ? "text-white dark:text-black"
+                      : "text-neutral-400 hover:text-white dark:text-neutral-500 dark:hover:text-black"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </footer>

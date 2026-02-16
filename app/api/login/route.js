@@ -32,7 +32,9 @@ export async function POST(req) {
       expiresIn: "1d",
     });
 
-    return NextResponse.json({ token });
+    const userId = user.id;
+
+    return NextResponse.json({ token, userId }, { status: 200 });
   } catch {
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }

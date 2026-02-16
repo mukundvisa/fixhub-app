@@ -8,6 +8,7 @@ export async function GET(req) {
   const category = searchParams.get("category") || "";
   const page = Number(searchParams.get("page")) || 1;
   const id = searchParams.get("id") || "";
+  const userId = searchParams.get("userId") || "";
 
   const limit = 20;
   const offset = (page - 1) * limit;
@@ -22,6 +23,11 @@ export async function GET(req) {
 
   let where = "WHERE 1=1";
   let values = [];
+
+  if (userId) {
+    where += " AND user_id = ?";
+    values.push(userId);
+  }
 
   if (search) {
     where += " AND program_title LIKE ?";
