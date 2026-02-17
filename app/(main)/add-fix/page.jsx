@@ -12,6 +12,7 @@ export default function AddFix() {
     programmingLanguage: "",
     problemTitle: "",
     fixCode: "",
+    userId: userId,
   });
   const [loading, setloading] = useState(false);
   const [message, setMessage] = useState("");

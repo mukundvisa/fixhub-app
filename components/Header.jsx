@@ -21,7 +21,7 @@ export default function Header() {
   const [menu, setMenu] = useState([]);
 
   useEffect(() => {
-    fetch("/api/get-link", { cache: "no-store" })
+    fetch("/api/get-link")
       .then((res) => res.json())
       .then((data) => setMenu(data[0]));
   }, []);
