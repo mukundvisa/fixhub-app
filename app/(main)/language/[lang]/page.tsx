@@ -36,42 +36,39 @@ export default function LanguagePage() {
         />
 
         <div className="absolute inset-0 bg-white/80 dark:bg-black/80" />
-        {problems.map((p) => (
-          <div className="relative container mx-auto px-4" key={p.ID}>
-            <nav className="mb-8 text-sm">
-              <ol className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
-                <li>
-                  <Link
-                    href="/"
-                    className="hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li>/</li>
-                <li className="text-neutral-900 dark:text-neutral-200">
-                  <Link
-                    href="/codes"
-                    className="hover:text-blue-600 dark:hover:text-blue-400"
-                  >
-                    Language
-                  </Link>
-                </li>
-                <li>/</li>
-                <li className="text-neutral-900 dark:text-neutral-200">
-                  {lang}
-                </li>
-              </ol>
-            </nav>
 
-            <Link
-              href={`/language/${lang}`}
-              className="inline-block rounded-full bg-blue-600/10 text-blue-600 dark:bg-blue-400/10 dark:text-blue-400 px-4 py-1 text-sm font-medium"
-            >
-              {lang}
-            </Link>
-          </div>
-        ))}
+        <div className="relative container mx-auto px-4">
+          <nav className="mb-8 text-sm">
+            <ol className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>/</li>
+              <li className="text-neutral-900 dark:text-neutral-200">
+                <Link
+                  href="/codes"
+                  className="hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  Language
+                </Link>
+              </li>
+              <li>/</li>
+              <li className="text-neutral-900 dark:text-neutral-200">{lang}</li>
+            </ol>
+          </nav>
+
+          <Link
+            href={`/language/${lang}`}
+            className="inline-block rounded-full bg-blue-600/10 text-blue-600 dark:bg-blue-400/10 dark:text-blue-400 px-4 py-1 text-sm font-medium"
+          >
+            {lang}
+          </Link>
+        </div>
       </section>
       <div className="container mx-auto px-4 py-15">
         <div className="bg-neutral-900 dark:bg-white p-10 rounded-xl shadow">
