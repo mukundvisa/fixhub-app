@@ -1,19 +1,22 @@
-"use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import codeBanner from "../../images/codes-banner.jpg";
+import db from "@/lib/db";
 
-export default function Home() {
-  const [problems, setProblems] = useState<any[]>([]);
+export async function getProblems() {
+  try {
+    const [rows]: any = await db.query(
+      "SELECT * FROM fixcode ORDER BY ID DESC",
+    );
+    return rows;
+  } catch (error) {
+    console.error("DB error:", error);
+    return [];
+  }
+}
 
-  useEffect(() => {
-    fetch(`/api/get-fix`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProblems(data.problems);
-      });
-  }, []);
+export default async function Home() {
+  const problems = await getProblems();
 
   return (
     <>
@@ -43,6 +46,7 @@ export default function Home() {
             <br />
             publishing fixes in one place.
           </p>
+
           <div className="text-center">
             <Link
               href="/add-fix"
@@ -53,12 +57,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
       <div className="container mx-auto px-4 py-15">
         <div className="bg-neutral-900 dark:bg-white p-10 rounded-xl shadow">
           <div>
             <h1 className="text-center text-white dark:text-neutral-900 text-3xl font-bold mb-5">
               All Coding Problems in One Place
             </h1>
+
             <p className="text-center text-white dark:text-neutral-900 text-lg font-medium mb-15">
               This platform provides a wide range of programming problems in
               JavaScript, React, Python, PHP, and many other technologies, along
@@ -75,7 +81,7 @@ export default function Home() {
           </div>
 
           <div>
-            {problems.map((p) => (
+            {problems.map((p: any) => (
               <div
                 className="bg-white dark:bg-black rounded shadow p-4 mb-4 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-3 items-center"
                 key={p.ID}
@@ -99,6 +105,7 @@ export default function Home() {
                 </Link>
               </div>
             ))}
+
             {problems.length > 0 && (
               <div className="flex justify-center mt-8">
                 <Link
@@ -109,6 +116,7 @@ export default function Home() {
                 </Link>
               </div>
             )}
+
             {problems.length === 0 && (
               <div className="flex justify-center py-12">
                 <div className="text-center">
