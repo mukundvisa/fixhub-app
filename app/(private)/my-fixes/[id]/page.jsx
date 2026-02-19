@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import addFixBanner from "../../../../images/add-fix-banner.jpg";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function AddFix() {
   const { id } = useParams();
-  const userId = localStorage.getItem("userId");
-
+  const router = useRouter();
   const [loading, setloading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
@@ -27,8 +26,6 @@ export default function AddFix() {
     fetch(`/api/get-fix?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-
         setFormData({
           programmingLanguage: data.problem?.programming_language || "",
           problemTitle: data.problem?.program_title || "",
@@ -68,6 +65,7 @@ export default function AddFix() {
 
       setMessage("Fix updated successfully!");
       setMessageType("success");
+      router.push("/my-fixes");
     } catch (error) {
       setMessage("" + error.message);
       setMessageType("error");

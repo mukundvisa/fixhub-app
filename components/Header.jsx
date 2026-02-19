@@ -45,12 +45,11 @@ export default function Header() {
     localStorage.setItem("theme", isDarkNow ? "dark" : "light");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-
+  const handleLogout = async () => {
+    await fetch("/api/logout", {
+      method: "POST",
+    });
     router.push("/login");
-
-    router.refresh();
   };
 
   return (

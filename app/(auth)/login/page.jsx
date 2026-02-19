@@ -22,10 +22,9 @@ export default function Login() {
     });
 
     const data = await res.json();
+    console.log("data", data);
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId);
+    if (data.success) {
       router.push("/");
     } else {
       setMessage(data.message);

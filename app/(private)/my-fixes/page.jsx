@@ -13,12 +13,20 @@ const page = () => {
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [userId, setUserId] = useState(null);
 
-  const userId = localStorage.getItem("userId");
   const totalPages = Math.ceil(total / 20);
+
+  // Get User ID
+  useEffect(() => {
+    fetch("/api/user-id")
+      .then((res) => res.json())
+      .then((data) => setUserId(data.id));
+  }, []);
 
   // Get Problem Data
   useEffect(() => {
+    if (!userId) return;
     fetch(
       `/api/get-fix?search=${search}&category=${category}&page=${page}&userId=${userId}`,
     )
@@ -28,7 +36,7 @@ const page = () => {
         setCategories(data.categories);
         setTotal(data.total);
       });
-  }, [search, category, page]);
+  }, [search, category, page, userId]);
 
   // Delete Problem In Database
   const handleDelete = async (id) => {

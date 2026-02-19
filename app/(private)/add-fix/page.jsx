@@ -4,9 +4,11 @@ import { useState } from "react";
 import addFixBanner from "../../../images/add-fix-banner.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function AddFix() {
   const userId = localStorage.getItem("userId");
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     programmingLanguage: "",
@@ -44,6 +46,7 @@ export default function AddFix() {
       if (!response.ok) throw new Error(data.message);
       setMessage("Fix Save successfully!");
       setMessageType("success");
+      router.push("/codes");
 
       setFormData({
         programmingLanguage: "",

@@ -1,9 +1,7 @@
 import db from "@/lib/db";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-
-const SECRET_KEY = "ZFToXk9CLnh11MY1pdb8rCj2KfibMuGoEqMgUO1xhIw";
+import { createSession } from "@/lib/session";
 
 export async function POST(req) {
   try {
@@ -28,13 +26,9 @@ export async function POST(req) {
       );
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
-      expiresIn: "1d",
-    });
+    await createSession(user.email);
 
-    const userId = user.id;
-
-    return NextResponse.json({ token, userId }, { status: 200 });
+    return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
   }

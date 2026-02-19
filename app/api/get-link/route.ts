@@ -2,11 +2,10 @@ import { NextResponse } from "next/server";
 import db from "@/lib/db";
 import { unstable_cache } from "next/cache";
 
-
 const getMenu = unstable_cache(
   async () => {
     const [rows]: any = await db.query(
-      "SELECT menu_json FROM menus ORDER BY id DESC LIMIT 1"
+      "SELECT menu_json FROM menus ORDER BY id DESC LIMIT 1",
     );
 
     if (!rows.length) return null;
@@ -16,7 +15,7 @@ const getMenu = unstable_cache(
   ["menu-cache"],
   {
     tags: ["menu"],
-  }
+  },
 );
 
 export async function GET() {
@@ -31,10 +30,7 @@ export async function GET() {
   } catch {
     return NextResponse.json(
       { error: "Failed to fetch menu" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-
-
-
