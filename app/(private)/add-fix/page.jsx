@@ -1,24 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import addFixBanner from "../../../images/add-fix-banner.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function AddFix() {
-  const userId = localStorage.getItem("userId");
   const router = useRouter();
 
+  const [loading, setloading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
   const [formData, setFormData] = useState({
     programmingLanguage: "",
     problemTitle: "",
     fixCode: "",
-    userId: userId,
   });
-  const [loading, setloading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -29,8 +27,10 @@ export default function AddFix() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (userId == null) return;
+
     setloading(true);
-    setMessage("");
 
     try {
       const response = await fetch("/api/add-fix", {
@@ -47,13 +47,6 @@ export default function AddFix() {
       setMessage("Fix Save successfully!");
       setMessageType("success");
       router.push("/codes");
-
-      setFormData({
-        programmingLanguage: "",
-        problemTitle: "",
-        fixCode: "",
-        userId: userId,
-      });
     } catch (error) {
       setMessage("" + error.message);
       setMessageType("error");
@@ -126,7 +119,7 @@ export default function AddFix() {
               <input
                 type="text"
                 name="programmingLanguage"
-                value={formData.programmingLanguage}
+                value={formData.programmingLanguage || ""}
                 onChange={handleChange}
                 placeholder="e.g. Css, React, Html"
                 className="mt-2 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2 text-white dark:text-black placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -140,7 +133,7 @@ export default function AddFix() {
               <input
                 type="text"
                 name="problemTitle"
-                value={formData.problemTitle}
+                value={formData.problemTitle || ""}
                 onChange={handleChange}
                 placeholder="e.g. Equal Height Box"
                 className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2 text-white dark:text-black placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -153,7 +146,7 @@ export default function AddFix() {
               </label>
               <textarea
                 name="fixCode"
-                value={formData.fixCode}
+                value={formData.fixCode || ""}
                 onChange={handleChange}
                 rows={6}
                 placeholder="Explain the problem and solution step by step..."

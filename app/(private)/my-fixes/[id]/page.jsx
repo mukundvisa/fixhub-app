@@ -12,12 +12,20 @@ export default function AddFix() {
   const [loading, setloading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [userId, setUserId] = useState(null);
 
   const [formData, setFormData] = useState({
     programmingLanguage: "",
     problemTitle: "",
     fixCode: "",
   });
+
+  // Get User ID
+  useEffect(() => {
+    fetch("/api/user-id")
+      .then((res) => res.json())
+      .then((data) => setUserId(data.id));
+  }, []);
 
   // fetch existing fix
   useEffect(() => {
@@ -47,6 +55,7 @@ export default function AddFix() {
     setMessage("");
 
     try {
+      if (!userId) return;
       const response = await fetch("/api/add-fix", {
         method: "POST",
         headers: {

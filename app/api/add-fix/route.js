@@ -1,12 +1,30 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
+import { getSession } from "@/lib/session";
 
 export async function POST(req) {
   try {
-    const { id, programmingLanguage, problemTitle, fixCode, userId } =
-      await req.json();
+    // get session
+    const session = await getSession();
 
-    if (!programmingLanguage || !problemTitle || !fixCode || !userId) {
+    if (!session?.email) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    // get user from DB
+    const [users] = await db.execute("SELECT id FROM users WHERE email = ?", [
+      session.email,
+    ]);
+
+    if (!users.length) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
+    const userId = users[0].id;
+
+    const { id, programmingLanguage, problemTitle, fixCode } = await req.json();
+
+    if (!programmingLanguage || !problemTitle || !fixCode) {
       return NextResponse.json(
         { message: "All fields are required" },
         { status: 400 },
