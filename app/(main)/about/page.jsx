@@ -4,6 +4,14 @@ import vision from "../../../images/vision.jpg";
 import mission from "../../../images/mission.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  ShareIcon,
+  UsersIcon,
+  ClockIcon,
+  AcademicCapIcon,
+  UserGroupIcon,
+  LightBulbIcon,
+} from "@heroicons/react/16/solid";
 
 const page = () => {
   return (
@@ -52,7 +60,7 @@ const page = () => {
       </section>
 
       {/* Mission Vision */}
-      <section className="container mx-auto px-6 grid md:grid-cols-2 gap-15 py-12">
+      <section className="container mx-auto px-6 grid md:grid-cols-2 gap-15 py-25">
         <div className="p-6 rounded-2xl bg-black dark:bg-white">
           <Image
             src={mission}
@@ -83,71 +91,95 @@ const page = () => {
           </p>
         </div>
       </section>
-
-      <section className="container mx-auto px-6 py-20 ">
-        <h2 className="text-3xl font-bold text-center mb-10">
-          What You Can Do Here
-        </h2>
-
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {[
-            "Share coding fixes and solutions",
-            "Browse community knowledge",
-            "Save time debugging",
-            "Learn from real examples",
-            "Collaborate with developers",
-            "Improve problem-solving skills",
-          ].map((feature, i) => (
-            <div
-              key={i}
-              className="p-5 rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5"
-            >
-              {feature}
+      <section className="bg-black dark:bg-white">
+        <div className="container mx-auto px-6 py-25">
+          <h2 className="text-4xl font-extrabold text-center mb-15 text-white dark:text-black">
+            What Can Do Here
+          </h2>
+          <div className="grid md:grid-cols-3 gap-10">
+            <div className="p-5 text-white dark:text-black flex items-center flex-col gap-6">
+              <ShareIcon className="w-15 h-15 text-blue-400" />
+              <p className="text-center text-lg">
+                Share coding fixes & solutions
+              </p>
             </div>
-          ))}
+            <div className="p-5 text-white dark:text-black flex items-center flex-col gap-6">
+              <UsersIcon className="w-15 h-15 text-blue-400" />
+              <p className="text-center text-lg">Browse community knowledge</p>
+            </div>
+            <div className="p-5 text-white dark:text-black flex items-center flex-col gap-6">
+              <ClockIcon className="w-15 h-15 text-blue-400" />
+              <p className="text-center text-lg">Save time debugging</p>
+            </div>
+            <div className="p-5 text-white dark:text-black flex items-center flex-col gap-6">
+              <AcademicCapIcon className="w-15 h-15 text-blue-400" />
+              <p className="text-center text-lg">Learn from real examples</p>
+            </div>
+            <div className="p-5 text-white dark:text-black flex items-center flex-col gap-6">
+              <UserGroupIcon className="w-15 h-15 text-blue-400" />
+              <p className="text-center text-lg">Collaborate with developers</p>
+            </div>
+            <div className="p-5 text-white dark:text-black flex items-center flex-col gap-6">
+              <LightBulbIcon className="w-15 h-15 text-blue-400" />
+              <p className="text-center text-lg">
+                Improve problem-solving skills
+              </p>
+            </div>
+          </div>
         </div>
       </section>
+      <section className="bg-gray-300 dark:bg-white/15 py-25">
+        <div className="container mx-auto px-6">
+          <h2 className="text-4xl font-extrabold text-center mb-15 text-black dark:text-white">
+            How It Works
+          </h2>
 
-      {/* How it works */}
-      <section className="bg-gray-50 dark:bg-white/5 py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-10">How It Works</h2>
-
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <h3 className="font-semibold text-lg mb-2">1. Explore</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Search for solutions or browse topics to find helpful fixes.
+          <div className="grid md:grid-cols-3 gap-5 text-center">
+            <div className="flex flex-col gap-3">
+              <span className="text-2xl font-extrabold">1.</span>
+              <h3 className="font-extrabold text-2xl">Explore</h3>
+              <p className="text-gray-600 dark:text-gray-200">
+                Search for solutions or <br />
+                browse topics to find helpful fixes.
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-lg mb-2">2. Share</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Post your own fixes and contribute knowledge to the community.
+            <div className="flex flex-col gap-3">
+              <span className="text-2xl font-extrabold">2.</span>
+              <h3 className="font-extrabold text-2xl">Share</h3>
+              <p className="text-gray-600 dark:text-gray-200">
+                Post your own fixes and <br />
+                contribute knowledge to the community.
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-lg mb-2">3. Grow</h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Learn from others and improve your development workflow.
+            <div className="flex flex-col gap-3">
+              <span className="text-2xl font-extrabold">3.</span>
+              <h3 className="font-extrabold text-2xl">Grow</h3>
+              <p className="text-gray-600 dark:text-gray-200">
+                Learn from others and <br />
+                improve your development workflow.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="max-w-4xl mx-auto px-6 py-20 text-center">
-        <h2 className="text-3xl font-bold mb-4">Join the Fix Community</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
+      <section className="container mx-auto px-6 py-25 text-center">
+        <h2 className="text-4xl font-extrabold text-center mb-8 text-black dark:text-white">
+          Join the Fix Community
+        </h2>
+        <p className="text-gray-600 dark:text-gray-200 mb-8 text-xl">
           Start sharing solutions and help others solve problems faster.
         </p>
 
-        <button className="px-6 py-3 rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        <Link
+          href="/add-fix"
+          target="_blank"
+          className="cursor-pointer inline-block px-6 py-3 rounded-full bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+        >
           Get Started
-        </button>
+        </Link>
       </section>
     </>
   );
