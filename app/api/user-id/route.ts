@@ -10,7 +10,7 @@ export async function GET() {
   }
 
   const [rows]: any = await db.query(
-    "SELECT id, email FROM users WHERE email = ?",
+    "SELECT id, email, name FROM users WHERE email = ?",
     [session.email],
   );
 

@@ -79,9 +79,9 @@ const page = () => {
                   <small className="block text-white dark:text-black">
                     Mail
                   </small>
-                  <spane className="font-semibold text-blue-300 dark:text-blue-600">
+                  <span className="font-semibold text-blue-300 dark:text-blue-600">
                     info@aksharfixhub.com
-                  </spane>
+                  </span>
                 </Link>
               </li>
             </ul>
