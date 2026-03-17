@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 export default function Login() {
   const router = useRouter();
@@ -11,6 +12,9 @@ export default function Login() {
     password: "",
   });
   const [message, setMessage] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,11 +57,22 @@ export default function Login() {
         />
 
         <input
-          type="password"
+          type={isVisible ? "text" : "password"}
           placeholder="Password"
-          className="border p-2 w-full mb-4 "
+          className="border p-2 w-full mb-4 relative"
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
+        {isVisible ? (
+          <EyeIcon
+            className="w-6 absolute bottom-106.5 right-200 cursor-pointer"
+            onClick={toggleVisibility}
+          />
+        ) : (
+          <EyeSlashIcon
+            className="w-6 absolute bottom-106.5 right-200 cursor-pointer"
+            onClick={toggleVisibility}
+          />
+        )}
 
         <button className="cursor-pointer bg-blue-400 text-white w-full py-2 font-bold rounded">
           Login

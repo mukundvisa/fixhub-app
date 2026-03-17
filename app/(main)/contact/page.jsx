@@ -1,11 +1,42 @@
-import React from "react";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import contact from "../../../images/contact.jpg";
 import { SlEnvolope } from "react-icons/sl";
 import { FaInstagram, FaGithub, FaLinkedin } from "react-icons/fa";
 
+import { useState } from "react";
+
 const page = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Message Sent!");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } else {
+      alert(data.message);
+    }
+  };
   return (
     <>
       <section className="relative w-full pt-32 pb-20">
@@ -111,29 +142,45 @@ const page = () => {
           </div>
         </div>
 
-        <form className="lg:ml-auto space-y-4">
+        <form className="lg:ml-auto space-y-4" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Name"
+            name="name"
             className="w-full rounded-md py-3 px-4 bg-slate-100 text-slate-900 text-sm border border-gray-200 "
+            value={form.name}
+            onChange={handleChange}
+            required
           />
           <input
             type="email"
             placeholder="Email"
             className="w-full rounded-md py-3 px-4 bg-slate-100 text-slate-900 text-sm border border-gray-200 "
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
           />
           <input
             type="text"
             placeholder="Subject"
             className="w-full rounded-md py-3 px-4 bg-slate-100 text-slate-900 text-sm border border-gray-200 "
+            name="subject"
+            value={form.subject}
+            onChange={handleChange}
+            required
           />
           <textarea
             placeholder="Message"
             rows="6"
             className="w-full rounded-md px-4 bg-slate-100 text-slate-900 text-sm pt-3 border border-gray-200 "
+            name="message"
+            value={form.message}
+            onChange={handleChange}
+            required
           ></textarea>
           <button
-            type="button"
+            type="submit"
             className="text-white bg-blue-600  tracking-wide rounded-md text-sm font-bold px-4 py-3 w-full cursor-pointer  border-0"
           >
             Send message
