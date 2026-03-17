@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Code Fixhub",
   description: "Developer store important code here",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
