@@ -56,23 +56,26 @@ export default function Login() {
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
 
-        <input
-          type={isVisible ? "text" : "password"}
-          placeholder="Password"
-          className="border p-2 w-full mb-4 relative"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        {isVisible ? (
-          <EyeIcon
-            className="w-6 absolute bottom-106.5 right-200 cursor-pointer"
-            onClick={toggleVisibility}
+        <div className="relative w-full mb-4">
+          <input
+            type={isVisible ? "text" : "password"}
+            placeholder="Password"
+            className="border p-2 w-full pr-10"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
-        ) : (
-          <EyeSlashIcon
-            className="w-6 absolute bottom-106.5 right-200 cursor-pointer"
-            onClick={toggleVisibility}
-          />
-        )}
+
+          {isVisible ? (
+            <EyeIcon
+              className="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+              onClick={toggleVisibility}
+            />
+          ) : (
+            <EyeSlashIcon
+              className="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+              onClick={toggleVisibility}
+            />
+          )}
+        </div>
 
         <button className="cursor-pointer bg-blue-400 text-white w-full py-2 font-bold rounded">
           Login
