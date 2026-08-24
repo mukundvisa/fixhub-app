@@ -13,4 +13,4 @@ const pwaConfig = withPWA({
   // disable: process.env.NODE_ENV === "development",
 });
 
-export default nextConfig;
+export default pwaConfig(nextConfig);
