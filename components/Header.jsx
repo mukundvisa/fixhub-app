@@ -36,8 +36,21 @@ export default function Header() {
 
   useEffect(() => {
     fetch("/api/get-link")
-      .then((res) => res.json())
-      .then((data) => setMenu(data));
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch menu");
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setMenu(data);
+        } else {
+          setMenu([]);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setMenu([]);
+      });
   }, []);
 
   useEffect(() => {
@@ -97,7 +110,7 @@ export default function Header() {
           </button>
 
           <ul className="hidden md:flex items-center gap-3 bg-black dark:bg-white px-5 py-2 rounded-full shadow">
-            {menu &&
+            {Array.isArray(menu) &&
               menu.map((item, index) => {
                 if (item.children) {
                   if (!isLoggedIn) return null;
@@ -180,7 +193,7 @@ export default function Header() {
             </div>
 
             <div className="flex flex-col gap-3 mt-6">
-              {menu.map((item, index) => {
+              {Array.isArray(menu) && menu.map((item, index) => {
                 if (item.children) {
                   return (
                     <div key={index}>
