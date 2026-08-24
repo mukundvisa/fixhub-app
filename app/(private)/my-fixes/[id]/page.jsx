@@ -145,7 +145,7 @@ export default function AddFix() {
               <input
                 type="text"
                 name="programmingLanguage"
-                value={formData.programmingLanguage}
+                value={formData.programmingLanguage || ""}
                 onChange={handleChange}
                 className="mt-2 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2 text-white dark:text-black placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -157,7 +157,7 @@ export default function AddFix() {
               <input
                 type="text"
                 name="problemTitle"
-                value={formData.problemTitle}
+                value={formData.problemTitle || ""}
                 onChange={handleChange}
                 className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2 text-white dark:text-black placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
@@ -170,7 +170,7 @@ export default function AddFix() {
 
               <textarea
                 name="fixCode"
-                value={formData.fixCode}
+                value={formData.fixCode || ""}
                 onChange={handleChange}
                 rows={6}
                 className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2 text-white dark:text-black placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"

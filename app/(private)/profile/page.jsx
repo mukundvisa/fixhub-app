@@ -52,7 +52,12 @@ const page = () => {
     fetch(`/api/profile/`)
       .then((res) => res.json())
       .then((data) => {
-        setUser(data);
+        // Sanitize null values to empty strings to avoid React value prop warning
+        const sanitizedData = Object.keys(data).reduce((acc, key) => {
+          acc[key] = data[key] ?? "";
+          return acc;
+        }, {});
+        setUser(sanitizedData);
       });
   }, [userId]);
 
@@ -310,7 +315,7 @@ const page = () => {
                   Full Name
                 </label>
                 <input
-                  value={user.name}
+                  value={user.name || ""}
                   onChange={handleChange}
                   name="name"
                   type="text"
@@ -327,7 +332,7 @@ const page = () => {
                   Email
                 </label>
                 <input
-                  value={user.email}
+                  value={user.email || ""}
                   onChange={handleChange}
                   name="email"
                   type="email"
@@ -344,7 +349,7 @@ const page = () => {
                   Phone Number
                 </label>
                 <input
-                  value={user.phone}
+                  value={user.phone || ""}
                   onChange={handleChange}
                   name="phone"
                   type="tel"
@@ -361,7 +366,7 @@ const page = () => {
                   Gender
                 </label>
                 <select
-                  value={user.gender}
+                  value={user.gender || ""}
                   onChange={handleChange}
                   name="gender"
                   className="w-full px-4 py-3.5 rounded-lg bg-white dark:bg-black
@@ -382,7 +387,7 @@ const page = () => {
                 Bio
               </label>
               <textarea
-                value={user.bio}
+                value={user.bio || ""}
                 onChange={handleChange}
                 name="bio"
                 rows={4}
@@ -405,7 +410,7 @@ const page = () => {
                     Address
                   </label>
                   <input
-                    value={user.address}
+                    value={user.address || ""}
                     onChange={handleChange}
                     name="address"
                     type="text"
@@ -422,7 +427,7 @@ const page = () => {
                     City
                   </label>
                   <input
-                    value={user.city}
+                    value={user.city || ""}
                     onChange={handleChange}
                     name="city"
                     type="text"
@@ -439,7 +444,7 @@ const page = () => {
                     Pincode
                   </label>
                   <input
-                    value={user.pincode}
+                    value={user.pincode || ""}
                     onChange={handleChange}
                     name="pincode"
                     type="text"
@@ -456,7 +461,7 @@ const page = () => {
                     Country
                   </label>
                   <input
-                    value={user.country}
+                    value={user.country || ""}
                     onChange={handleChange}
                     name="country"
                     type="text"

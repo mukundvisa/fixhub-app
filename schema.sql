@@ -1,0 +1,48 @@
+-- Create database if not exists
+CREATE DATABASE IF NOT EXISTS fixhub;
+USE fixhub;
+
+-- Create Users table
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) DEFAULT NULL,
+  gender VARCHAR(20) DEFAULT NULL,
+  bio TEXT DEFAULT NULL,
+  address VARCHAR(255) DEFAULT NULL,
+  city VARCHAR(100) DEFAULT NULL,
+  country VARCHAR(100) DEFAULT NULL,
+  pincode VARCHAR(20) DEFAULT NULL,
+  profile_image VARCHAR(255) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Create Fixcode table with foreign key to Users
+CREATE TABLE IF NOT EXISTS fixcode (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  programming_language VARCHAR(255) NOT NULL,
+  program_title VARCHAR(255) NOT NULL,
+  fix_code TEXT NOT NULL,
+  user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Create Contacts table
+CREATE TABLE IF NOT EXISTS contacts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  subject VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Create Menus table
+CREATE TABLE IF NOT EXISTS menus (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  menu_json TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
