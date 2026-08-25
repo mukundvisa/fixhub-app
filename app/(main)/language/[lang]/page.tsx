@@ -89,11 +89,15 @@ export default function LanguagePage() {
           <div>
             {problems.map((p) => (
               <div
-                className="bg-white dark:bg-black rounded shadow p-4 mb-4 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto] gap-3 items-center"
-                key={p.ID}
+                className="bg-white dark:bg-black rounded shadow p-4 mb-4 grid grid-cols-1 sm:grid-cols-[1fr_auto_auto_auto] gap-3 items-center"
+                key={p.id}
               >
                 <div className="text-black dark:text-white font-semibold">
                   {p.program_title?.split(" ").slice(0, 6).join(" ")}
+                </div>
+
+                <div className="text-xs text-neutral-500 dark:text-neutral-400 justify-self-start sm:justify-self-center">
+                  <span className="font-medium text-neutral-700 dark:text-neutral-300">Added By:</span> {p.user_name || "Unknown"}
                 </div>
 
                 <Link
@@ -104,7 +108,7 @@ export default function LanguagePage() {
                 </Link>
 
                 <Link
-                  href={`/codes/${p.ID}`}
+                  href={`/codes/${p.id}`}
                   className="cursor-pointer bg-black dark:bg-white dark:text-black text-white px-4 py-1.5 rounded text-sm justify-self-start sm:justify-self-end font-semibold"
                 >
                   View Fix

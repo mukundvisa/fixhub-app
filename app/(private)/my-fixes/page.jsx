@@ -55,7 +55,7 @@ const page = () => {
       const data = await res.json();
 
       if (res.ok) {
-        setProblems((prev) => prev.filter((p) => p.ID !== id));
+        setProblems((prev) => prev.filter((p) => p.id !== id));
         alert("Problem deleted successfully");
       } else {
         alert(data.message || "Delete failed");
@@ -146,11 +146,15 @@ const page = () => {
             {problems.map((p) => (
               <div
                 className="bg-white dark:bg-black rounded-xl shadow-md hover:shadow-lg transition p-4 mb-4 
-             grid grid-cols-1 sm:grid-cols-[1fr_auto_auto_auto] gap-3 items-center"
-                key={p.ID}
+             grid grid-cols-1 sm:grid-cols-[1fr_auto_auto_auto_auto] gap-3 items-center"
+                key={p.id}
               >
                 <div className="text-black dark:text-white font-semibold text-sm sm:text-base">
                   {p.program_title?.split(" ").slice(0, 6).join(" ")}
+                </div>
+
+                <div className="text-xs text-neutral-500 dark:text-neutral-400 justify-self-start sm:justify-self-center">
+                  <span className="font-medium text-neutral-700 dark:text-neutral-300">Added By:</span> {p.user_name || "Unknown"}
                 </div>
 
                 <Link
@@ -161,7 +165,7 @@ const page = () => {
                 </Link>
 
                 <Link
-                  href={`/codes/${p.ID}`}
+                  href={`/codes/${p.id}`}
                   className="bg-black dark:bg-white dark:text-black text-white 
                hover:opacity-80 transition px-4 py-1.5 rounded-lg text-sm font-semibold text-center"
                 >
@@ -171,7 +175,7 @@ const page = () => {
                 <div className="flex items-center gap-2 justify-start sm:justify-end">
                   {/* Edit Button */}
                   <Link
-                    href={`/my-fixes/${p.ID}`}
+                    href={`/my-fixes/${p.id}`}
                     className="p-2 rounded-lg bg-green-100 hover:bg-green-200 
                  dark:bg-green-900 dark:hover:bg-green-800 
                  transition"
@@ -181,7 +185,7 @@ const page = () => {
 
                   {/* Delete Button */}
                   <button
-                    onClick={() => handleDelete(p.ID)}
+                    onClick={() => handleDelete(p.id)}
                     className="p-2 cursor-pointer rounded-lg bg-red-100 hover:bg-red-200 
                  dark:bg-red-900 dark:hover:bg-red-800 
                  transition"

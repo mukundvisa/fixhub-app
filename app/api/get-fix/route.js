@@ -14,7 +14,10 @@ export async function GET(req) {
   const offset = (page - 1) * limit;
 
   if (id) {
-    const [rows] = await db.query("SELECT * FROM fixcode WHERE id = ?", [id]);
+    const [rows] = await db.query(
+      "SELECT f.*, u.name AS user_name FROM fixcode f LEFT JOIN users u ON f.user_id = u.id WHERE f.id = ?",
+      [id]
+    );
 
     return NextResponse.json({
       problem: rows[0] || null,
@@ -25,29 +28,29 @@ export async function GET(req) {
   let values = [];
 
   if (userId) {
-    where += " AND user_id = ?";
+    where += " AND f.user_id = ?";
     values.push(userId);
   }
 
   if (search) {
-    where += " AND program_title LIKE ?";
+    where += " AND f.program_title LIKE ?";
     values.push(`%${search}%`);
   }
 
   if (category) {
-    where += " AND programming_language LIKE ?";
+    where += " AND f.programming_language LIKE ?";
     values.push(`%${category}%`);
   }
 
   // Get paginated problems
   const [rows] = await db.query(
-    `SELECT * FROM fixcode ${where} ORDER BY id DESC LIMIT ? OFFSET ?`,
+    `SELECT f.*, u.name AS user_name FROM fixcode f LEFT JOIN users u ON f.user_id = u.id ${where} ORDER BY f.id DESC LIMIT ? OFFSET ?`,
     [...values, limit, offset],
   );
 
   // Get total count
   const [[count]] = await db.query(
-    `SELECT COUNT(*) AS total FROM fixcode ${where}`,
+    `SELECT COUNT(*) AS total FROM fixcode f ${where}`,
     values,
   );
 
