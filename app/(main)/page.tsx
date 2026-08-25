@@ -3,6 +3,8 @@ import Image from "next/image";
 import codeBanner from "../../images/codes-banner.jpg";
 import db from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 export async function getProblems() {
   try {
     const [rows]: any = await db.query(

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import db from "@/lib/db";
 import { getSession } from "@/lib/session";
+import { revalidateTag } from "next/cache";
 
 export async function POST(req) {
   try {
@@ -47,6 +48,8 @@ export async function POST(req) {
         userId,
       ]);
 
+      revalidateTag("fix");
+
       return NextResponse.json({ message: "Fix updated successfully" });
     } else {
       // INSERT
@@ -61,6 +64,8 @@ export async function POST(req) {
         fixCode,
         userId,
       ]);
+
+      revalidateTag("fix");
 
       return NextResponse.json({ message: "Fix published successfully" });
     }
